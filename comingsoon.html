@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="ChatGPT Image May 31, 2026, 08_23_54 PM.png" type="image/x-icon">
+    <title>TerraOS - Landing Page</title>
+</head>
+
+<body>
+    <header id="navbar">
+        <div class="hl" id="brand-logo">
+            <a href="index.html">
+                <div><img src="ChatGPT Image May 31, 2026, 08_23_54 PM.png" alt="" height="80px" width="80px"></div>
+                <div>TerraOS</div>
+            </a>
+        </div>
+        <div class="hr">
+            <button class="hamburger" id="hamburger-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="h-items" id="nav-menu">
+                <li>
+                    <a href="dash.html">
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="support.html">
+                        Support
+                    </a>
+                </li>
+                <li>
+                    <a href="myacc.html">
+                        My&nbsp;Account
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="csoon">
+            Stay tuned! 
+            <br><br><br><br>
+            New features are on the way.
+        </div>
+    </main>
+    <footer>
+        <div class="ftop">
+            <div class="wwr">
+                <div class="wwrh">
+                    Our Story
+                    <br>
+                    <br>
+                </div>
+                <div class="wwrt">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.
+                </div>
+            </div>
+            <div class="reachout">
+                <div class="reachouth">
+                    Contact Us
+                    <br>
+                    <br>
+                </div>
+                <div class="reachoutinfo">
+                    Email:
+                    <br>
+                    <br>
+
+                    Phone:
+                    <br>
+                    <br>
+
+                    Address:
+                </div>
+            </div>
+            <div class="sitemap">
+                <div class="sitemaph">
+                    Sitemap
+                    <br>
+                    <br>
+
+                </div>
+                <div class="sitemapt">
+                    <a href="index.html">Landing Page</a>
+                    <br>
+                    <a href="dash.html">Dashboard</a>
+                    <br>
+                    <a href="support.html">Support</a>
+                    <br>
+                    <a href="myacc.html">My Account
+                        <br>
+                        & Billing Info
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="fbottom">
+            &copy; 2026 The term TerraOS, TerraOS website, TerraScore and YPI are registered trademarks of TerraOS
+            Groups
+        </div>
+    </footer>
+    <script>
+        const navbar = document.getElementById('navbar');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 250) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>

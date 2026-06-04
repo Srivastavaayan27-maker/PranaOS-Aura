@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="ChatGPT Image May 31, 2026, 08_23_54 PM.png" type="image/x-icon">
+    <title>TerraOS - Landing Page</title>
+</head>
+
+<body>
+    <header id="navbar">
+        <div class="hl" id="brand-logo">
+            <a href="index.html">
+                <div><img src="ChatGPT Image May 31, 2026, 08_23_54 PM.png" alt="" height="80px" width="80px"></div>
+                <div>TerraOS</div>
+            </a>
+        </div>
+        <div class="hr">
+            <button class="hamburger" id="hamburger-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="h-items" id="nav-menu">
+                <li>
+                    <a href="dash.html">
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="support.html">
+                        Support
+                    </a>
+                </li>
+                <li>
+                    <a href="myacc.html">
+                        My&nbsp;Account
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <section class="sec1">
+            <div class="sec1l">
+                <div class="sec1lt">
+                    Welcome to TerraOS!!
+                </div>
+                <div class="sec1lb">
+                    Don't have the app?
+                    <br>
+                    <br>
+                    Don't worry, we got you covered.
+                    <br>
+                    <br>
+                    Download the app now:
+                    <br>
+                    <br>
+                    <div class="downloads">
+                        <div class="appstore">
+                            <a href="comingsoon.html">
+                                <img src="appstore1.png" alt="">
+                            </a>
+                        </div>
+                        <div class="playstore">
+                            <a href="comingsoon.html">
+                                <img src="googleps1.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sec1r">
+                <img src="ChatGPT Image May 31, 2026, 08_23_54 PM.png" alt="" height="600px" width="600px">
+            </div>
+        </section>
+        <hr>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <section class="sec2">
+            <div class="sec2l">
+                Already have the app?
+                <br>
+                <br>
+                <a href="login.html">
+                    Login or Sign up here.
+                </a>
+            </div>
+            <div class="sec2r"></div>
+        </section>
+    </main>
+    <footer>
+        <div class="ftop">
+            <div class="wwr">
+                <div class="wwrh">
+                    Our Story
+                    <br>
+                    <br>
+                </div>
+                <div class="wwrt">
+                    At PranaOS, we transform urban infrastructure into intelligent ecosystems. By combining porous concrete, IoT sensors and AI-driven analytics, we help cities monitor and protect the hidden health of urban soil and tree roots. Our technology reduces tree loss, prevents flooding, lowers maintenance costs.
+                </div>
+            </div>
+            <div class="reachout">
+                <div class="reachouth">
+                    Contact Us
+                    <br>
+                    <br>
+                </div>
+                <div class="reachoutinfo">
+                    Email: pranaOS@hotmail.com
+                    <br>
+                    <br>
+
+                    Phone: +91 9667007699
+                    <br>
+                    <br>
+
+                    Address: Sector 10, RK Puram, New Delhi, India
+                </div>
+            </div>
+            <div class="sitemap">
+                <div class="sitemaph">
+                    Sitemap
+                    <br>
+                    <br>
+
+                </div>
+                <div class="sitemapt">
+                    <a href="index.html">Landing Page</a>
+                    <br>
+                    <a href="dash.html">Dashboard</a>
+                    <br>
+                    <a href="support.html">Support</a>
+                    <br>
+                    <a href="myacc.html">My Account
+                        <br>
+                        & Billing Info
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="fbottom">
+            &copy; 2026 The term TerraOS, TerraOS website, TerraScore and YPI are registered trademarks of TerraOS
+            Groups
+        </div>
+    </footer>
+    <script>
+        const navbar = document.getElementById('navbar');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 250) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>

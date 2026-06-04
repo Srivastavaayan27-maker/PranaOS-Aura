@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PranaOS - Core System Dashboard</title>
+    <style>
+        /* Global Page Variables & Base Resets */
+        :root {
+            --color-deep-space: rgb(4, 4, 38);
+            --color-nav-solid: rgb(1, 1, 15);
+            --color-panel-glass: rgba(255, 255, 255, 0.03);
+            --color-border-glow: rgba(255, 255, 255, 0.08);
+            --font-stack: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: var(--font-stack);
+        }
+    
+        body {
+            background-color: var(--color-deep-space);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+    
+        a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    
+        /* Fixed Navigation Bar Alignment */
+        header {
+            background-color: rgb(2, 2, 22);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 24px 8%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    
+        header.scrolled {
+            padding: 13px 8%;
+            background-color: var(--color-nav-solid);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+    
+        .hl a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 2.1rem;
+            font-weight: bold;
+        }
+    
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            fill: none;
+            stroke: #4ade80;
+            stroke-width: 2.5;
+        }
+    
+        header div ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+    
+        header div ul li {
+            font-size: 1.25rem;
+        }
+    
+        header div ul li a:hover {
+            color: rgb(167, 135, 135);
+        }
+    
+        /* Mobile Hamburger Trigger Icon */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 19px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+    
+        /* Primary Main Grid Workspaces */
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 60px 4%;
+        }
+    
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: stretch;
+            margin-bottom: 60px;
+        }
+    
+        /* Left Dashboard Panel: Dynamic Analytics Gauge Container */
+        .sec1l {
+            background: var(--color-panel-glass);
+            border: 1px solid var(--color-border-glow);
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+    
+        .Prana-score-container {
+            position: relative;
+            width: 100%;
+            max-width: 390px;
+            aspect-ratio: 4/3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .Prana-gauge {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+    
+        .Prana-score-content {
+            position: absolute;
+            text-align: center;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+    
+        .Prana-score-title {
+            font-size: 1.15rem;
+            opacity: 0.65;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+    
+        .Prana-score-number {
+            font-size: 5.2rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+    
+        .Prana-score-status {
+            margin-top: 10px;
+            font-size: 1.45rem;
+            font-weight: bold;
+        }
+    
+        /* Right Dashboard Panel: Micro-Sensor Metric Board */
+        .sec1r {
+            background: var(--color-panel-glass);
+            border: 1px solid var(--color-border-glow);
+            border-radius: 24px;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+    
+        .sec1rh {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+        }
+    
+        .sec1rt {
+            font-size: 1.3rem;
+            line-height: 2.3;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            row-gap: 12px;
+        }
+    
+        .sec1rt span {
+            font-weight: bold;
+            font-family: monospace, sans-serif;
+        }
+    
+        /* Enterprise Conversion CTA Module */
+        .sec2 {
+            text-align: center;
+            padding: 30px 0 50px;
+        }
+    
+        .sec2c {
+            font-size: 1.35rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    
+        .sec2c a {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 14px 36px;
+            background: #2563eb;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
+            transition: all 0.3s ease;
+        }
+    
+        .sec2c a:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+    
+        /* Comprehensive Structural System Footer */
+        footer {
+            background-color: rgb(1, 1, 12);
+            padding: 60px 8% 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+    
+        footer .ftop {
+            display: grid;
+            grid-template-columns: 1.2fr 0.9fr 0.9fr;
+            gap: 50px;
+        }
+    
+        footer .ftop h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+    
+        footer .ftop p, footer .ftop .sitemapt {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.65);
+        }
+    
+        footer .ftop .sitemapt a {
+            display: block;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+    
+        footer .ftop .sitemapt a:hover {
+            color: #4ade80;
+            padding-left: 4px;
+        }
+    
+        footer .fbottom {
+            text-align: center;
+            padding-top: 35px;
+            margin-top: 35px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .Prana-score-title {
+            padding-top: 80px;
+        }
+    
+        /* Grid Layout Breakpoints & Mobile UI Constraints */
+        @media (max-width: 960px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            footer .ftop {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+    
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+    
+            header div ul {
+                position: fixed;
+                top: 93px;
+                right: -100%;
+                flex-direction: column;
+                background-color: rgb(2, 2, 22);
+                width: 270px;
+                height: calc(100vh - 93px);
+                gap: 0;
+                padding-top: 25px;
+                box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.5);
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                border-left: 1px solid rgba(255, 255, 255, 0.05);
+            }
+    
+            header.scrolled div ul {
+                top: 71px;
+                height: calc(100vh - 71px);
+            }
+    
+            header div ul li {
+                padding: 22px 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            }
+    
+            header div ul.active {
+                right: 0;
+            }
+    
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+    
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+    
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+    </style>
+    
+</head>
+<body>
+
+    <!-- Dynamic Interface Header Grid Navigation -->
+    <header id="navbar">
+        <div class="hl" id="brand-logo">
+            <a href="index.html">
+                <!-- Mathematical Inline Geometric Core System Logo Component -->
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 3v18M3 12h18"/>
+                </svg>
+                <span>PranaOS</span>
+            </a>
+        </div>
+        <div class="hr">
+            <button class="hamburger" id="hamburger-btn" aria-label="Toggle Menu Node">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="h-items" id="nav-menu">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#account">My Account</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Unified Screen Grid Framework Container -->
+    <main>
+        <section class="dashboard-grid" id="dashboard">
+            
+            <!-- Left Panel Frame Area: Vector Graphic Display Element -->
+            <div class="sec1l">
+                <div class="Prana-score-container">
+                    <svg class="Prana-gauge" viewBox="0 0 400 250">
+                        <!-- Structural Track Path -->
+                        <path id="bgArc"
+                            d="M 70 200 A 130 130 0 0 1 330 200"
+                            fill="none"
+                            stroke="rgba(255,255,255,0.15)"
+                            stroke-width="18"
+                            stroke-linecap="round" />
+                        <!-- Active Performance Path -->
+                        <path id="PranaArc"
+                            d="M 70 200 A 130 130 0 0 1 330 200"
+                            fill="none"
+                            stroke="#4ade80"
+                            stroke-width="18"
+                            stroke-linecap="round" />
+                        <!-- Running Value Needle Node Pin -->
+                        <circle id="PranaIndicator"
+                            cx="70" cy="200" r="11"
+                            fill="#4ade80"
+                            stroke="white"
+                            stroke-width="3.5" />
+                    </svg>
+                    <div class="Prana-score-content">
+                        <div class="Prana-score-title">PranaScore</div>
+                        <div class="Prana-score-number" id="PranaScoreNumber">0</div>
+                        <div class="Prana-score-status">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel Frame Area: Calculated Realtime Variables Grid -->
+            <div class="sec1r">
+                <div class="sec1rh">Soil Metrics Matrix</div>
+                <div class="sec1rt">
+                    <div>Electrical Conductivity (EC):</div><span id="ec">—</span>
+                    <div>Subsoil pH Value:</div><span id="soil">—</span>
+                    <div>Subsoil Core Temperature:</div><span id="temp">—</span>
+                    <div>Moisture Volumetric Ratio:</div><span id="moist">—</span>
+                    <div>Elemental Nitrogen (N):</div><span id="n">—</span>
+                    <div>Elemental Phosphorus (P):</div><span id="p">—</span>
+                    <div>Elemental Potassium (K):</div><span id="k">—</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Access Interface Redirect Node -->
+        <section class="sec2">
+            <div class="sec2c">
+                Already operating an ecosystem node network?
+                <br>
+                <a href="#login">Access Operational Interface Profile</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Structural Application System Footer -->
+    <footer>
+        <div class="ftop">
+            <div class="wwr">
+                <h3>Our Architecture</h3>
+                <p>PranaOS integrates structural pervious matrix concrete arrays with active subsurface analytical elements to protect local urban infrastructure arrays.</p>
+            </div>
+            <div class="reachout">
+                <h3>Uplink Coordinates</h3>
+                <p>Email: systems@pranaos.io<br><br>Phone: +1 (555) 304-9284<br><br>Complex Block Delta, San Jose, CA</p>
+            </div>
+            <div class="sitemap">
+                <h3>Directory Nodes</h3>
+                <div class="sitemapt">
+                    <a href="#dashboard">Landing Gateway</a>
+                    <a href="#dashboard">Ecosystem Dashboard</a>
+                    <a href="#support">Diagnostic Hub</a>
+                    <a href="#account">Node Operations Portal</a>
+                </div>
+            </div>
+        </div>
+        <div class="fbottom">
+            &copy; 2026 PranaOS Holdings Group. All calculations protected under structural perceptron software utility rights.
+        </div>
+    </footer>
+    <script>
+        // 1. Structural View Controller Interactivity
+        const navbar = document.getElementById('navbar');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hamburgerBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // 2. Hardware Telemetry Mock Database Values
+        const sensorInputs = {
+            ec: 1.75,      // Electrical Conductivity in dS/m (Optimal Range: 1.0 - 2.5)
+            pH: 6.80,      // Soil pH level scalar (Optimal Range: 6.0 - 7.5)
+            temp: 24.5,    // Subsoil temperature in °C (Optimal Range: 15.0 - 28.0)
+            moist: 38.2,   // Volumetric moisture ratio in % (Optimal Range: 20.0 - 50.0)
+            n: 44.0,       // Available Nitrogen in mg/kg (Optimal Range: 30.0 - 60.0)
+            p: 23.5,       // Available Phosphorus in mg/kg (Optimal Range: 15.0 - 30.0)
+            k: 148.0       // Available Potassium in mg/kg (Optimal Range: 100.0 - 200.0)
+        };
+
+        // Render Telemetry values instantly into HTML layout blocks
+        document.getElementById('ec').textContent = sensorInputs.ec + " dS/m";
+        document.getElementById('soil').textContent = sensorInputs.pH;
+        document.getElementById('temp').textContent = sensorInputs.temp + " °C";
+        document.getElementById('moist').textContent = sensorInputs.moist + "%";
+        document.getElementById('n').textContent = sensorInputs.n + " mg/kg";
+        document.getElementById('p').textContent = sensorInputs.p + " mg/kg";
+        document.getElementById('k').textContent = sensorInputs.k + " mg/kg";
+
+        // 3. Single-Layer Perceptron Math Score Evaluation Matrix
+        function runPerceptronSoilEvaluation(inputs) {
+            // Activation normalization function checking boundary safety vectors
+            const activateThreshold = (val, low, high) => {
+                if (val >= low && val <= high) return 1.0; // Perfect matrix condition satisfied
+                if (val >= (low * 0.75) && val <= (high * 1.25)) return 0.50; // Moderate system deviation
+                return 0.15; // High anomaly alarm risk fault
+            };
+
+            // Compile Feature Vectors Array [X1, X2, X3, X4, X5, X6, X7]
+            const X = [
+                activateThreshold(inputs.ec, 1.0, 2.5),
+                activateThreshold(inputs.pH, 6.0, 7.5),
+                activateThreshold(inputs.temp, 15.0, 28.0),
+                activateThreshold(inputs.moist, 20.0, 50.0),
+                activateThreshold(inputs.n, 30.0, 60.0),
+                activateThreshold(inputs.p, 15.0, 30.0),
+                activateThreshold(inputs.k, 100.0, 200.0)
+            ];
+
+            // Synaptic Connection Priority Weights matrix (Sums up precisely to 1.00)
+            const W = [0.15, 0.15, 0.08, 0.22, 0.16, 0.12, 0.12];
+            
+            // Perceptron Input Bias Scalar Offset
+            const structuralBias = 0.04;
+
+            // Apply Vector Dot Product Summation Formula: netInput = Σ(Xi * Wi) + bias
+            let netLinearInput = structuralBias;
+            for (let i = 0; i < X.length; i++) {
+                netLinearInput += X[i] * W[i];
+            }
+
+            // Linear Activation Function mapping calculation directly to 0-100 limits
+            let scalarPercentage = Math.min(Math.max(netLinearInput, 0), 1);
+            return Math.round(scalarPercentage * 100);
+        }
+
+        // Run computational cycle path execution
+        const PranaScore = runPerceptronSoilEvaluation(sensorInputs);
+
+        // 4. Vector SVG Canvas Display Elements
+        const arc = document.getElementById("PranaArc");
+        const indicator = document.getElementById("PranaIndicator");
+        const scoreNumber = document.getElementById("PranaScoreNumber");
+
+        const length = arc.getTotalLength();
+        arc.style.strokeDasharray = length;
+        arc.style.strokeDashoffset = length;
+
+        // Dynamic System Status Classification Colors
+        let evaluationColor, healthStatus;
+        if (PranaScore >= 80) {
+            evaluationColor = "#22c55e"; // Green tracking highlight
+            healthStatus = "Excellent Health";
+        } else if (PranaScore >= 60) {
+            evaluationColor = "#eab308"; // Yellow tracking highlight
+            healthStatus = "Good / Stable";
+        } else {
+            evaluationColor = "#ef4444"; // Red tracking highlight
+            healthStatus = "Degraded Alert";
+        }
+
+        // Apply state classifications to graphic shapes
+        arc.style.stroke = evaluationColor;
+        indicator.style.fill = evaluationColor;
+        
+        const textStatusNode = document.querySelector(".Prana-score-status");
+        textStatusNode.textContent = healthStatus;
+        textStatusNode.style.color = evaluationColor;
+
+        // Sync colors across telemetry results fields cleanly
+        document.querySelectorAll('.sec1rt span').forEach(el => el.style.color = evaluationColor);
+
+        // 5. Linear Interpolation Visual Rendering Loop
+        const runningDuration = 1600; // Animation running frame constraint in ms
+        const processStartMarker = performance.now();
+
+        function dynamicAnimateLoop(currentTime) {
+            const timeDelta = Math.min((currentTime - processStartMarker) / runningDuration, 1);
+            
+            // Cubic Ease-Out curve acceleration multiplier
+            const easeCurveStep = 1 - Math.pow(1 - timeDelta, 3);
+            
+            // Render continuous values string increments
+            scoreNumber.textContent = Math.floor(PranaScore * easeCurveStep);
+            
+            // Process radial path fill stroke metrics
+            arc.style.strokeDashoffset = length * (1 - (PranaScore / 100) * easeCurveStep);
+
+            // Dynamically trace path space to anchor point indicator coordinates
+            const coordinatesPoint = arc.getPointAtLength(length * (PranaScore / 100) * easeCurveStep);
+            indicator.setAttribute("cx", coordinatesPoint.x);
+            indicator.setAttribute("cy", coordinatesPoint.y);
+
+            if (timeDelta < 1) {
+                requestAnimationFrame(dynamicAnimateLoop);
+            } else {
+                scoreNumber.textContent = PranaScore; // Stabilize calculations boundary
+            }
+        }
+        
+        // Fire animation thread loop
+        requestAnimationFrame(dynamicAnimateLoop);
+    </script>
+</body>
+</html>
