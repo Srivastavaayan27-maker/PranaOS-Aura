@@ -12,6 +12,9 @@
             --color-panel-glass: rgba(255, 255, 255, 0.03);
             --color-border-glow: rgba(255, 255, 255, 0.08);
             --font-stack: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            --color-success: #22c55e;
+            --color-warning: #eab308;
+            --color-danger: #ef4444;
         }
     
         * {
@@ -35,6 +38,865 @@
             color: white;
             transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+    
+        /* Fixed Navigation Bar Alignment */
+        header {
+            background-color: rgb(2, 2, 22);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 24px 8%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    
+        header.scrolled {
+            padding: 13px 8%;
+            background-color: var(--color-nav-solid);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+    
+        .hl a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 2.1rem;
+            font-weight: bold;
+        }
+    
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            fill: none;
+            stroke: #4ade80;
+            stroke-width: 2.5;
+        }
+    
+        header div ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+    
+        header div ul li {
+            font-size: 1.25rem;
+        }
+    
+        header div ul li a:hover {
+            color: rgb(167, 135, 135);
+        }
+    
+        /* Mobile Hamburger Trigger Icon */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 19px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+    
+        .hamburger span {
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+    
+        /* Primary Main Grid Workspaces */
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 60px 4%;
+        }
+    
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: stretch;
+            margin-bottom: 45px;
+        }
+
+        .dashboard-grid.bottom-row {
+            margin-bottom: 60px;
+        }
+    
+        /* Dashboard Panel Universal Glass Styling */
+        .sec1l, .sec1r, .sec-trend, .sec-ai {
+            background: var(--color-panel-glass);
+            border: 1px solid var(--color-border-glow);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sec1l {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sec1r {
+            justify-content: center;
+        }
+    
+        .Prana-score-container {
+            position: relative;
+            width: 100%;
+            max-width: 390px;
+            aspect-ratio: 4/3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .Prana-gauge {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+    
+        .Prana-score-content {
+            position: absolute;
+            text-align: center;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+    
+        .Prana-score-title {
+            font-size: 1.15rem;
+            opacity: 0.65;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            padding-top: 80px;
+        }
+    
+        .Prana-score-number {
+            font-size: 5.2rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+    
+        .Prana-score-status {
+            margin-top: 10px;
+            font-size: 1.45rem;
+            font-weight: bold;
+        }
+    
+        .sec1rh, .panel-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+        }
+    
+        .sec1rt {
+            font-size: 1.3rem;
+            line-height: 2.3;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            row-gap: 12px;
+        }
+    
+        .sec1rt span {
+            font-weight: bold;
+            font-family: monospace, sans-serif;
+        }
+
+                /* --- New Trends & AI Recommendation Panel Layouts --- */
+        .sec-trend {
+            justify-content: space-between;
+        }
+
+        .chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 10px;
+            flex-grow: 1;
+        }
+
+        .chart-block {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chart-label {
+            font-size: 1.15rem;
+            opacity: 0.8;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            align-items: flex-end;
+            height: 110px;
+            padding-top: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .bar {
+            width: 100%;
+            border-radius: 6px 6px 0 0;
+            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 0%; /* Dynamic height calculated in script */
+        }
+
+        .bar.good {
+            background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.2);
+        }
+
+        .bar.bad {
+            background: linear-gradient(180deg, #f87171 0%, #ef4444 100%);
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.2);
+        }
+
+        .bar-value {
+            font-size: 0.9rem;
+            font-family: monospace;
+            opacity: 0.7;
+        }
+
+        .bar-axis-lbl {
+            font-size: 0.9rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+        }
+
+        .trend-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .trend-link {
+            color: #60a5fa;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .trend-link:hover {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+
+        .ai-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+        }
+
+        .status-dot.syncing {
+            background: #eab308;
+            animation: pulse-glow 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { opacity: 0.4; } to { opacity: 1; }
+        }
+
+        .rec-card-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .rec-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid #64748b;
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        .rec-card.success { border-left-color: #22c55e; }
+        .rec-card.warning { border-left-color: #eab308; }
+        .rec-card.info { border-left-color: #3b82f6; }
+
+        .rec-card-title {
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 1.2rem;
+        }
+
+        /* Grid Layout Breakpoints & Mobile UI Constraints */
+        @media (max-width: 960px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            footer .ftop {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+    
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+    
+            header div ul {
+                position: fixed;
+                top: 93px;
+                right: -100%;
+                flex-direction: column;
+                background-color: rgb(2, 2, 22);
+                width: 270px;
+                height: calc(100vh - 93px);
+                gap: 0;
+                padding-top: 25px;
+                box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.5);
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                border-left: 1px solid rgba(255, 255, 255, 0.05);
+            }
+    
+            header.scrolled div ul {
+                top: 71px;
+                height: calc(100vh - 71px);
+            }
+    
+            header div ul li {
+                padding: 22px 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            }
+    
+            header div ul.active {
+                right: 0;
+            }
+    
+            .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
+
+                /* Comprehensive Structural System Footer */
+        footer {
+            background-color: rgb(1, 1, 12);
+            padding: 60px 8% 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+            width: 100%;
+        }
+    
+        footer .ftop {
+            display: grid;
+            grid-template-columns: 1.2fr 0.9fr 0.9fr;
+            gap: 50px;
+        }
+    
+        footer .ftop h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: 0.5px;
+        }
+    
+        footer .ftop p, 
+        footer .ftop .reachout,
+        footer .ftop .wwr {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.65);
+        }
+    
+        footer .ftop .sitemapt a {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.65);
+            transition: all 0.3s ease;
+        }
+    
+        footer .ftop .sitemapt a:hover {
+            color: #4ade80;
+            padding-left: 6px;
+        }
+    
+        footer .fbottom {
+            text-align: center;
+            padding-top: 35px;
+            margin-top: 35px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive Mobile Breakpoint Fixes */
+        @media (max-width: 960px) {
+            footer .ftop {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Interface Header Grid Navigation -->
+    <header id="navbar">
+        <div class="hl" id="brand-logo">
+            <a href="index.html">
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 3v18M3 12h18"/>
+                </svg>
+                <span>PranaOS</span>
+            </a>
+        </div>
+        <div class="hr">
+            <button class="hamburger" id="hamburger-btn" aria-label="Toggle Menu Node">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="h-items" id="nav-menu">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#account">My Account</a></li>
+            </ul>
+        </div>
+    </header>
+
+        <!-- Unified Screen Grid Framework Container -->
+    
+            <!-- Unified Screen Grid Framework Container -->
+    <main>
+        <!-- Top Row Elements: Prana Score & AI Predictive Synthesis -->
+        <section class="dashboard-grid" id="dashboard">
+            <!-- Left Panel Frame Area: Vector Graphic Display Element -->
+            <div class="sec1l">
+                <div class="Prana-score-container">
+                    <svg class="Prana-gauge" viewBox="0 0 400 250">
+                        <path id="bgArc"
+                            d="M 70 200 A 130 130 0 0 1 330 200"
+                            fill="none"
+                            stroke="rgba(255,255,255,0.15)"
+                            stroke-width="18"
+                            stroke-linecap="round" />
+                        <path id="PranaArc"
+                            d="M 70 200 A 130 130 0 0 1 330 200"
+                            fill="none"
+                            stroke="#4ade80"
+                            stroke-width="18"
+                            stroke-linecap="round" />
+                        <circle id="PranaIndicator"
+                            cx="70" cy="200" r="11"
+                            fill="#4ade80"
+                            stroke="white"
+                            stroke-width="3.5" />
+                    </svg>
+                    <div class="Prana-score-content">
+                        <div class="Prana-score-title">PranaScore</div>
+                        <div class="Prana-score-number" id="PranaScoreNumber">0</div>
+                        <div class="Prana-score-status">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Top Panel: Live Environmental Rules Engine Recommendations -->
+            <div class="sec-ai">
+                <div class="panel-title">AI Predictive Synthesis</div>
+                <div class="ai-status-badge">
+                    <div class="status-dot syncing" id="ai-status-dot"></div>
+                    <span id="ai-status-text">Connecting Weather Grid...</span>
+                </div>
+                <div class="rec-card-stack" id="ai-rec-stack">
+                    <div class="rec-card info">
+                        <div class="rec-card-title">Analyzing System Vectors...</div>
+                        Running structural algorithms on subsoil metrics and telemetry inputs.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Bottom Row Elements: Soil Metrics Matrix & Soil Trends -->
+        <section class="dashboard-grid bottom-row">
+            <!-- Left Bottom Panel: Calculated Realtime Variables Grid -->
+            <div class="sec1r">
+                <div class="sec1rh">Soil Metrics Matrix</div>
+                <div class="sec1rt">
+                    <div>Electrical Conductivity (EC):</div><span id="ec">—</span>
+                    <div>Subsoil pH Value:</div><span id="soil">—</span>
+                    <div>Subsoil Core Temperature:</div><span id="temp">—</span>
+                    <div>Moisture Volumetric Ratio:</div><span id="moist">—</span>
+                    <div>Elemental Nitrogen (N):</div><span id="n">—</span>
+                    <div>Elemental Phosphorus (P):</div><span id="p">—</span>
+                    <div>Elemental Potassium (K):</div><span id="k">—</span>
+                </div>
+            </div>
+
+            <!-- Right Bottom Panel: Analytical Trends Graph Component -->
+            <div class="sec-trend">
+                <div class="panel-title">Soil Matrix Dynamics</div>
+                <div class="chart-wrapper">
+                    <!-- Nitrogen Graph (Rising - Good Condition) -->
+                    <div class="chart-block">
+                        <div class="chart-label">
+                            <span>Elemental Nitrogen (N) — Steady Increase</span>
+                            <span style="color: #4ade80;">Optimal</span>
+                        </div>
+                        <div class="chart-container">
+                            <div class="bar-wrapper"><span class="bar-value">32</span><div class="bar good" data-height="53%"></div><span class="bar-axis-lbl">W1</span></div>
+                            <div class="bar-wrapper"><span class="bar-value">36</span><div class="bar good" data-height="60%"></div><span class="bar-axis-lbl">W2</span></div>
+                            <div class="bar-wrapper"><span class="bar-value">41</span><div class="bar good" data-height="68%"></div><span class="bar-axis-lbl">W3</span></div>
+                            <div class="bar-wrapper"><span class="bar-value">44</span><div class="bar good" data-height="73%"></div><span class="bar-axis-lbl">W4</span></div>
+                        </div>
+                    </div>
+                    <!-- pH Graph (Falling - Bad Condition) -->
+                    <div class="chart-block">
+                        <div class="chart-label">
+                            <span>Subsoil pH Value — Acidic Acidification Trend</span>
+                            <span style="color: #f87171;">Anomaly Risk</span>
+                        </div>
+                        <div class="chart-container">
+                            <div class="bar-wrapper"><span class="bar-value">7.2</span><div class="bar bad" data-height="96%"></div><span class="bar-axis-lbl">W1</span></div>
+                            <div class="bar-wrapper"><span class="bar-value">7.0</span><div class="bar bad" data-height="93%"></div><span class="bar-axis-lbl">W2</span></div>
+                            <div class="bar-wrapper"><span class="bar-value">6.9</span><div class="bar bad" data-height="92%"></div><span class="bar-axis-lbl">W3</span></div>
+                            <div class="bar-wrapper"><span class="bar-value">6.8</span><div class="bar bad" data-height="90%"></div><span class="bar-axis-lbl">W4</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="trend-footer">
+                    <a href="#trends-archive" class="trend-link">View Historical System Archives &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Structural Application System Footer -->
+    <footer>
+        <div class="ftop">
+            <div class="wwr">
+                <h3>Our Architecture</h3>
+                <p>PranaOS integrates structural pervious matrix concrete arrays with active subsurface analytical elements to protect local urban infrastructure arrays.</p>
+            </div>
+            <div class="reachout">
+                <h3>Uplink Coordinates</h3>
+                <p>Email: systems@pranaos.io<br><br>Phone: +1 (555) 304-9284<br><br>Complex Block Delta, San Jose, CA</p>
+            </div>
+            <div class="sitemap">
+                <h3>Directory Nodes</h3>
+                <div class="sitemapt">
+                    <a href="#dashboard">Landing Gateway</a>
+                    <a href="#dashboard">Ecosystem Dashboard</a>
+                    <a href="#support">Diagnostic Hub</a>
+                    <a href="#account">Node Operations Portal</a>
+                </div>
+            </div>
+        </div>
+        <div class="fbottom">
+            &copy; 2026 PranaOS Holdings Group. All calculations protected under structural perceptron software utility rights.
+        </div>
+    </footer>
+
+    <script>
+        // 1. Structural View Controller Interactivity
+        const navbar = document.getElementById('navbar');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hamburgerBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // 2. Hardware Telemetry Mock Database Values
+        const sensorInputs = {
+            ec: 1.75,      // Electrical Conductivity in dS/m (Optimal Range: 1.0 - 2.5)
+            pH: 6.80,      // Soil pH level scalar (Optimal Range: 6.0 - 7.5)
+            temp: 24.5,    // Subsoil temperature in °C (Optimal Range: 15.0 - 28.0)
+            moist: 38.2,   // Volumetric moisture ratio in % (Optimal Range: 20.0 - 50.0)
+            n: 44.0,       // Available Nitrogen in mg/kg (Optimal Range: 30.0 - 60.0)
+            p: 23.5,       // Available Phosphorus in mg/kg (Optimal Range: 15.0 - 30.0)
+            k: 148.0       // Available Potassium in mg/kg (Optimal Range: 100.0 - 200.0)
+        };
+
+                // Render Telemetry values instantly into HTML layout blocks
+        document.getElementById('ec').textContent = sensorInputs.ec + " dS/m";
+        document.getElementById('soil').textContent = sensorInputs.pH;
+        document.getElementById('temp').textContent = sensorInputs.temp + " °C";
+        document.getElementById('moist').textContent = sensorInputs.moist + "%";
+        document.getElementById('n').textContent = sensorInputs.n + " mg/kg";
+        document.getElementById('p').textContent = sensorInputs.p + " mg/kg";
+        document.getElementById('k').textContent = sensorInputs.k + " mg/kg";
+
+        // 3. Single-Layer Perceptron Math Score Evaluation Matrix
+        function runPerceptronSoilEvaluation(inputs) {
+            const activateThreshold = (val, low, high) => {
+                if (val >= low && val <= high) return 1.0; 
+                if (val >= (low * 0.75) && val <= (high * 1.25)) return 0.50; 
+                return 0.15; 
+            };
+
+            const X = [
+                activateThreshold(inputs.ec, 1.0, 2.5),
+                activateThreshold(inputs.pH, 6.0, 7.5),
+                activateThreshold(inputs.temp, 15.0, 28.0),
+                activateThreshold(inputs.moist, 20.0, 50.0),
+                activateThreshold(inputs.n, 30.0, 60.0),
+                activateThreshold(inputs.p, 15.0, 30.0),
+                activateThreshold(inputs.k, 100.0, 200.0)
+            ];
+
+            const W = [0.15, 0.15, 0.08, 0.22, 0.16, 0.12, 0.12];
+            const structuralBias = 0.04;
+
+            let netLinearInput = structuralBias;
+            for (let i = 0; i < X.length; i++) { netLinearInput += X[i] * W[i]; }
+
+            let scalarPercentage = Math.min(Math.max(netLinearInput, 0), 1);
+            return Math.round(scalarPercentage * 100);
+        }
+
+        const PranaScore = runPerceptronSoilEvaluation(sensorInputs);
+
+        // 4. Vector SVG Canvas Display Elements
+        const arc = document.getElementById("PranaArc");
+        const indicator = document.getElementById("PranaIndicator");
+        const scoreNumber = document.getElementById("PranaScoreNumber");
+
+        const length = arc.getTotalLength();
+        arc.style.strokeDasharray = length;
+        arc.style.strokeDashoffset = length;
+
+        let evaluationColor, healthStatus;
+        if (PranaScore >= 80) {
+            evaluationColor = "#22c55e"; 
+            healthStatus = "Excellent Health";
+        } else if (PranaScore >= 60) {
+            evaluationColor = "#eab308"; 
+            healthStatus = "Good / Stable";
+        } else {
+            evaluationColor = "#ef4444"; 
+            healthStatus = "Degraded Alert";
+        }
+
+        arc.style.stroke = evaluationColor;
+        indicator.style.fill = evaluationColor;
+        
+        const textStatusNode = document.querySelector(".Prana-score-status");
+        textStatusNode.textContent = healthStatus;
+        textStatusNode.style.color = evaluationColor;
+
+        document.querySelectorAll('.sec1rt span').forEach(el => el.style.color = evaluationColor);
+
+        // 5. Linear Interpolation Visual Rendering Loop
+        const runningDuration = 1600; 
+        const processStartMarker = performance.now();
+
+        function dynamicAnimateLoop(currentTime) {
+            const timeDelta = Math.min((currentTime - processStartMarker) / runningDuration, 1);
+            const easeCurveStep = 1 - Math.pow(1 - timeDelta, 3);
+            
+            scoreNumber.textContent = Math.floor(PranaScore * easeCurveStep);
+            arc.style.strokeDashoffset = length * (1 - (PranaScore / 100) * easeCurveStep);
+
+            const coordinatesPoint = arc.getPointAtLength(length * (PranaScore / 100) * easeCurveStep);
+            indicator.setAttribute("cx", coordinatesPoint.x);
+            indicator.setAttribute("cy", coordinatesPoint.y);
+
+            if (timeDelta < 1) {
+                requestAnimationFrame(dynamicAnimateLoop);
+            } else {
+                scoreNumber.textContent = PranaScore; 
+                animateTrendBars(); // Cascade bar chart trigger
+            }
+        }
+        
+        requestAnimationFrame(dynamicAnimateLoop);
+
+        // 6. Animate Bottom-Left Structural Trend Bars
+        function animateTrendBars() {
+            document.querySelectorAll('.bar').forEach(bar => {
+                const targetHeight = bar.getAttribute('data-height');
+                bar.style.height = targetHeight;
+            });
+        }
+
+        // 7. Live Weather API Synthesis & Rule-Based Inference Engine
+        async function fetchWeatherAndSynthesize() {
+            const badgeDot = document.getElementById('ai-status-dot');
+            const badgeText = document.getElementById('ai-status-text');
+            const recStack = document.getElementById('ai-rec-stack');
+
+            // Fallback default conditions if the global API network errors out
+            let rainForecasted = false;
+            let weatherSummary = "Clear/Overcast Sky Nodes";
+
+            try {
+                // Coordinate query pointing toward Silicon Valley node coordinates (San Jose, CA)
+                const weatherUri = "https://open-meteo.com";
+                const networkResponse = await fetch(weatherUri);
+                
+                if (!networkResponse.ok) throw new Error("Telemetry payload dropout");
+                
+                const data = await networkResponse.json();
+                
+                // Inspect upcoming 3-day precipitation sums array indices
+                const precipitationArray = data.daily.precipitation_sum.slice(0, 3);
+                const combinedRainMass = precipitationArray.reduce((acc, current) => acc + current, 0);
+
+                if (combinedRainMass > 1.5) {
+                    rainForecasted = true;
+                    weatherSummary = `Incoming rain vector detected (${combinedRainMass.toFixed(1)}mm across next 48-72h)`;
+                } else {
+                    weatherSummary = "Arid / Clear atmospheric window sustained";
+                }
+
+                badgeDot.classList.remove('syncing');
+                badgeDot.style.background = "#22c55e";
+                badgeText.textContent = `Online: ${weatherSummary}`;
+
+            } catch (err) {
+                badgeDot.classList.remove('syncing');
+                badgeDot.style.background = "#ef4444";
+                badgeText.textContent = "Offline: Using historical fallback models";
+            }
+
+            // Fire Rule-Based Bot Matrix Calculations
+            generateAgriculturalRecommendations(sensorInputs, rainForecasted);
+        }
+
+        function generateAgriculturalRecommendations(metrics, isRainComing) {
+            const stack = document.getElementById('ai-rec-stack');
+            stack.innerHTML = ""; // Wipe processing card
+
+            let cropRecs = [];
+            let irrigationCard = "";
+            let elementCard = "";
+
+            // Rule Block A: Crop Suitability Selection based on NPK & pH vectors
+            if (metrics.pH >= 6.0 && metrics.pH <= 7.0 && metrics.k > 120) {
+                cropRecs = ["Legumes (Alfalfa, Clover)", "Root Crops (Carrots, Potatoes)", "Leafy Greens"];
+            } else if (metrics.pH < 6.0) {
+                cropRecs = ["Blueberries", "Oats", "Potatoes (Acid Tolerant Variants)"];
+            } else {
+                cropRecs = ["Barley", "Wheat", "Brassicas"];
+            }
+
+            // Rule Block B: Weather-Adaptive Irrigation Controller Logic
+            if (metrics.moist < 40.0) {
+                if (isRainComing) {
+                    irrigationCard = `
+                        <div class="rec-card success">
+                            <div class="rec-card-title">🌦️ Smart Irrigation Avoidance</div>
+                            Subsoil moisture is marginally low (${metrics.moist}%), but heavy rain is arriving within 48-72h. <strong>Hold automated lines</strong> to prevent soil drowning and run-off anomalies.
+                        </div>`;
+                } else {
+                    irrigationCard = `
+                        <div class="rec-card warning">
+                            <div class="rec-card-title">💧 Irrigation Optimization Requested</div>
+                            Subsoil matrix is dropping below threshold (${metrics.moist}%). Atmospheric windows are dry; deploy 15L/m² water dispersion sequences overnight.
+                        </div>`;
+                }
+            } else {
+                irrigationCard = `
+                    <div class="rec-card success">
+                        <div class="rec-card-title">✅ Moisture Buffer Intact</div>
+                        Volumetric soil density is at an optimal ${metrics.moist}%. No action required.
+                    </div>`;
+            }
+
+            // Rule Block C: Chemical Trend Treatment
+            if (metrics.pH < 6.9) {
+                elementCard = `
+                    <div class="rec-card warning">
+                        <div class="rec-card-title">🧪 Subsoil Acidification Trend Alert</div>
+                        The pH is dropping steadily (currently ${metrics.pH}). Plan an application of fine-grain agricultural lime ($CaCO_3$) during the next dry window to stabilize neural scores.
+                    </div>`;
+            } else {
+                elementCard = `
+                    <div class="rec-card success">
+                        <div class="rec-card-title">⚡ Nitrogen Synthesis Stable</div>
+                        Available soil Nitrogen is climbing optimally at ${metrics.n} mg/kg. Matrix connection health is sustained without additional synthetic input needs.
+                    </div>`;
+            }
+
+            // Render output payload deck array cleanly into view
+            const cropCard = `
+                <div class="rec-card info">
+                                        <div class="rec-card-title">🌱 Crop Adaptation Matrix</div>
+                    Current profile favors high-efficiency root optimization for: <strong>${cropRecs.join(', ')}</strong>.
+                </div>`;
+
+            stack.innerHTML = cropCard + irrigationCard + elementCard;
+        }
+
+        // Fire API trigger stack immediately following layout execution paths
+        fetchWeatherAndSynthesize();
+    </script>
+</body>
+</html>        }
     
         /* Fixed Navigation Bar Alignment */
         header {
